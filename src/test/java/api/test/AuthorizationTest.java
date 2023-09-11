@@ -11,19 +11,18 @@ import static org.testng.Assert.assertNotNull;
 
 public class AuthorizationTest {
 
-    public String authToken;
-
-
     @Test
      public void authToken(){
         //Arrange
 
         String addURI = "https://restful-booker.herokuapp.com/auth";
 
-        String payload = "{\n" +
-                "    \"username\" : \"admin\",\n" +
-                "    \"password\" : \"password123\"\n" +
-                "}";
+        String payload = """
+                {
+                    "username" : "admin",
+                    "password" : "password123"
+                }
+                """;
         HttpHeaders headers = new HttpHeaders();
 
         headers.add("Accept", "application/json");
