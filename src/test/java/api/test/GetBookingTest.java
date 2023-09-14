@@ -6,23 +6,20 @@ import api.test.entity.CreateTokenResponse;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 import static org.testng.Assert.*;
 
-public class BookingTest {
-
-
+public class GetBookingTest extends AbstractTest {
 
     @Test
     public void getBookingIdsTest() {
         //Arrange
 
         String addURI = "https://restful-booker.herokuapp.com/booking";
-
-        String token = fetchToken("admin", "password123");
 
         HttpHeaders headers = new HttpHeaders();
 
@@ -53,8 +50,6 @@ public class BookingTest {
 
         String addURI = "https://restful-booker.herokuapp.com/booking/{id}";
 
-        String token = fetchToken("admin", "password123");
-
         HttpHeaders headers = new HttpHeaders();
 
         headers.add("Authorization", "Bearer " + token);
@@ -77,28 +72,6 @@ public class BookingTest {
         assertNotNull(booking);
     }
 
-    private String fetchToken(String username, String password){
-        String addURI = "https://restful-booker.herokuapp.com/auth";
-
-        String payload = "{\n" +
-                "    \"username\" : \"" + username + "\",\n" +
-                "    \"password\" : \"" + password + "\"\n" +
-                "}";
-
-        HttpHeaders headers = new HttpHeaders();
-
-        headers.add("Accept", "application/json");
-        headers.add("Content-Type", "application/json");
-
-
-        HttpEntity<String> entity = new HttpEntity<>(payload, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<CreateTokenResponse> response = restTemplate.exchange(addURI, HttpMethod.POST, entity, CreateTokenResponse.class);
-
-
-        return response.getBody().getToken();
-    }
 
     private String getExcitingBookingId(){
         String addURI = "https://restful-booker.herokuapp.com/booking";
