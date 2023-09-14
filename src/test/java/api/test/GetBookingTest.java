@@ -1,12 +1,10 @@
 package api.test;
 
 import api.test.entity.BookingIdResponse;
-import api.test.entity.BookingResponse;
-import api.test.entity.CreateTokenResponse;
+import api.test.entity.Booking;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -34,7 +32,8 @@ public class GetBookingTest extends AbstractTest {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<List<BookingIdResponse>> response = restTemplate.exchange
-                (addURI, HttpMethod.GET, entity, new ParameterizedTypeReference<List<BookingIdResponse>>(){});
+                (addURI, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
+                });
 
         //Assert
 
@@ -62,13 +61,13 @@ public class GetBookingTest extends AbstractTest {
         //Act
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<BookingResponse> response =
-                restTemplate.exchange(addURI, HttpMethod.GET, entity, BookingResponse.class, getExcitingBookingId());
+        ResponseEntity<Booking> response =
+                restTemplate.exchange(addURI, HttpMethod.GET, entity, Booking.class, getExcitingBookingId());
 
         //Assert
 
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-        BookingResponse booking = response.getBody();
+        Booking booking = response.getBody();
         assertNotNull(booking);
     }
 
@@ -90,7 +89,8 @@ public class GetBookingTest extends AbstractTest {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<List<BookingIdResponse>> response = restTemplate.exchange
-                (addURI, HttpMethod.GET, entity, new ParameterizedTypeReference<List<BookingIdResponse>>(){});
+                (addURI, HttpMethod.GET, entity, new ParameterizedTypeReference<>() {
+                });
 
         return response.getBody().get(0).getBookingid();
     }
